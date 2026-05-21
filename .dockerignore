@@ -1,0 +1,21 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Terraform (Crucial: Never bake state files into an image!)
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# macOS
+.DS_Store

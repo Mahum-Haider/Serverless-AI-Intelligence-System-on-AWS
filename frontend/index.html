@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Artist Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #09090c;
+      --surface:   #111115;
+      --surface2:  #18181f;
+      --border:    #1c1c26;
+      --border2:   #252532;
+      --text:      #e4e2f0;
+      --muted:     #3e3e50;
+      --soft:      #7a7a92;
+      --mint:      #8de4be;
+      --mint-bg:   rgba(141, 228, 190, 0.09);
+      --mint-bd:   rgba(141, 228, 190, 0.20);
+      --sky:       #88c4e8;
+      --sky-bg:    rgba(136, 196, 232, 0.09);
+      --sky-bd:    rgba(136, 196, 232, 0.20);
+      --peach:     #f0b585;
+      --peach-bg:  rgba(240, 181, 133, 0.09);
+      --peach-bd:  rgba(240, 181, 133, 0.20);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .diamond {
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--mint);
+      transform: rotate(45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .diamond-inner {
+      width: 9px;
+      height: 9px;
+      background: var(--mint);
+      opacity: 0.35;
+    }
+
+    .logo-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .logo-text p {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    nav a:hover { color: var(--soft); }
+
+    .upload-btn {
+      border: 1px solid var(--mint);
+      color: var(--mint);
+      background: transparent;
+      padding: 7px 18px;
+      font-size: 11.5px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      letter-spacing: .04em;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .upload-btn:hover { background: var(--mint-bg); }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 56px 40px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -.025em;
+      line-height: 1.12;
+      margin-bottom: 12px;
+    }
+
+    .hero .tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    /* ── UPLOAD ZONE ── */
+    .upload-wrap {
+      padding: 40px 40px 8px;
+    }
+
+    .upload-zone {
+      max-width: 520px;
+      margin: 0 auto;
+      border: 1px dashed var(--border2);
+      border-radius: 6px;
+      padding: 32px 36px;
+      text-align: center;
+      background: var(--surface);
+      transition: border-color .2s;
+    }
+
+    .upload-zone:hover { border-color: var(--mint-bd); }
+
+    .upload-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    .upload-icon-wrap svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--mint);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .upload-zone h3 {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .upload-zone .sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      background: var(--mint-bg);
+      border: 1px solid var(--mint-bd);
+      color: var(--mint);
+      padding: 8px 22px;
+      font-size: 11.5px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: .02em;
+      transition: background .2s;
+    }
+
+    .file-label:hover { background: rgba(141, 228, 190, 0.15); }
+
+    .upload-action-btn {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid var(--border2);
+      border-radius: 3px;
+      color: var(--soft);
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+
+    .upload-action-btn:hover { border-color: var(--mint-bd); color: var(--mint); }
+
+    #uploadStatus {
+      margin-top: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: .05em;
+      min-height: 18px;
+    }
+
+    /* ── GALLERY ── */
+    .main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 40px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--soft);
+    }
+
+    .section-head span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .card:hover { transform: translateY(-2px); }
+
+    .card-img {
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 16px;
+      transition: transform .5s ease;
+    }
+
+    .card:hover .card-img img { transform: scale(1.04); }
+
+    .card-body {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-fname {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--soft);
+      line-height: 1.65;
+      margin-bottom: 14px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 58px;
+    }
+
+    .card-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 14px;
+      min-height: 24px;
+    }
+
+    .lbl {
+      font-family: 'DM Mono', monospace;
+      font-size: 8.5px;
+      letter-spacing: .1em;
+      padding: 3px 9px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    /* card footer — fixed layout */
+    .card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 13px;
+      flex-wrap: nowrap;
+    }
+
+    .card-id {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .share-btn {
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 5px 13px;
+      border-radius: 3px;
+      cursor: pointer;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: .02em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity .2s;
+    }
+
+    .share-btn:hover { opacity: .8; }
+
+    /* accent themes — assigned dynamically via JS */
+    .accent-mint { border-color: rgba(141,228,190,.25); }
+    .accent-mint .card-img { background: #0a1a16; }
+    .accent-mint .lbl  { background: var(--mint-bg); color: var(--mint); border: 1px solid var(--mint-bd); }
+    .accent-mint .share-btn { background: var(--mint-bg); color: var(--mint); }
+
+    .accent-sky { border-color: rgba(136,196,232,.25); }
+    .accent-sky .card-img { background: #0a1320; }
+    .accent-sky .lbl  { background: var(--sky-bg); color: var(--sky); border: 1px solid var(--sky-bd); }
+    .accent-sky .share-btn { background: var(--sky-bg); color: var(--sky); }
+
+    .accent-peach { border-color: rgba(240,181,133,.25); }
+    .accent-peach .card-img { background: #1a1209; }
+    .accent-peach .lbl  { background: var(--peach-bg); color: var(--peach); border: 1px solid var(--peach-bd); }
+    .accent-peach .share-btn { background: var(--peach-bg); color: var(--peach); }
+
+    /* empty / loading / error states */
+    .state-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .1em;
+    }
+
+    .state-msg.error {
+      color: #e07a6e;
+      background: rgba(224,122,110,.06);
+      border: 1px solid rgba(224,122,110,.15);
+      border-radius: 6px;
+      padding: 20px;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="logo">
+      <div class="diamond"><div class="diamond-inner"></div></div>
+      <div class="logo-text">
+        <h1>Cloud Artist Platform</h1>
+        <p>Real-time AI Metadata &amp; Content Management</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Portfolio</a>
+      <a href="#">About</a>
+      <button class="upload-btn" onclick="document.querySelector('.upload-zone').scrollIntoView({behavior:'smooth'})">+ Upload</button>
+    </nav>
+  </header>
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <h2>Your Art.<br>Understood by AI.</h2>
+    <p class="tagline">Upload artwork · receive instant descriptions, labels &amp; metadata</p>
+  </div>
+
+  <!-- ── UPLOAD ZONE ── -->
+  <div class="upload-wrap">
+    <div class="upload-zone"
+         ondragover="event.preventDefault(); this.style.borderColor='var(--mint-bd)'"
+         ondragleave="this.style.borderColor=''"
+         ondrop="handleDrop(event)">
+
+      <div class="upload-icon-wrap">
+        <svg viewBox="0 0 24 24">
+          <polyline points="16 16 12 12 8 16"/>
+          <line x1="12" y1="12" x2="12" y2="21"/>
+          <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/>
+        </svg>
+      </div>
+
+      <h3>Drop your artwork here</h3>
+      <p class="sub">JPEG or PNG · max 10MB</p>
+
+      <input type="file" id="fileInput" accept="image/jpeg,image/png">
+      <label class="file-label" for="fileInput">Browse Files</label>
+
+      <button class="upload-action-btn" onclick="uploadArtwork()">Upload to Platform</button>
+      <p id="uploadStatus"></p>
+    </div>
+  </div>
+
+  <!-- ── GALLERY ── -->
+  <main class="main">
+    <div class="section-head">
+      <h3>Portfolio</h3>
+      <span id="artworkCount">—</span>
+    </div>
+    <div id="gallery">
+      <p class="state-msg">Loading your portfolio...</p>
+    </div>
+  </main>
+
+  <script>
+    // ── CONFIG ──
+    const API_BASE    = "https://0foug2vmo0.execute-api.ca-central-1.amazonaws.com";
+    const BUCKET_NAME = "mahum-artist-uploads-19373b71";
+    const REGION      = "ca-central-1";
+
+    const ACCENTS = ['accent-mint', 'accent-sky', 'accent-peach'];
+
+    // ── GALLERY ──
+    async function loadGallery() {
+      const gallery = document.getElementById('gallery');
+      try {
+        const response = await fetch(`${API_BASE}/art`);
+        if (!response.ok) throw new Error(`API error (Status ${response.status}). Check API CORS settings.`);
+
+        const rawData = await response.json();
+        const data = Array.isArray(rawData) ? rawData : (rawData.Items || []);
+
+        if (!data || data.length === 0) {
+          gallery.innerHTML = "<p class='state-msg'>No artwork yet — start by uploading an image above.</p>";
+          document.getElementById('artworkCount').textContent = '0 artworks';
+          return;
+        }
+
+        document.getElementById('artworkCount').textContent = `${data.length} artwork${data.length !== 1 ? 's' : ''}`;
+
+        gallery.innerHTML = data.map((item, i) => {
+          const imageUrl = `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${item.FileName}`;
+          const accent   = ACCENTS[i % ACCENTS.length];
+
+          let labelsHtml = '';
+          if (item.Labels) {
+            const arr = Array.isArray(item.Labels) ? item.Labels : item.Labels.split(',');
+            labelsHtml = arr.map(l => `<span class="lbl">${l.trim()}</span>`).join('');
+          }
+
+          const shortId  = item.ArtworkID ? item.ArtworkID.substring(0, 8) : 'N/A';
+          const safeDesc = (item.AIDescription || '').replace(/'/g, "\\'");
+          const safeName = (item.FileName || '').replace(/'/g, "\\'");
+
+          return `
+            <div class="card ${accent}">
+              <div class="card-img">
+                <img src="${imageUrl}" alt="${item.FileName}" loading="lazy">
+              </div>
+              <div class="card-body">
+                <div class="card-fname" title="${item.FileName}">${item.FileName}</div>
+                <p class="card-desc">${item.AIDescription || 'AI is analyzing this artwork…'}</p>
+                <div class="card-labels">${labelsHtml}</div>
+                <div class="card-foot">
+                  <span class="card-id">ID: ${shortId}</span>
+                  <button class="share-btn"
+                    onclick="shareArtwork('${safeName}', '${safeDesc}', '${imageUrl}')">
+                    Share ↗
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error("Gallery error:", err);
+        gallery.innerHTML = `<p class="state-msg error">Error loading gallery: ${err.message}</p>`;
+      }
+    }
+
+    // ── UPLOAD ──
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.style.borderColor = '';
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        document.getElementById('fileInput').files = e.dataTransfer.files;
+        uploadArtwork();
+      }
+    }
+
+    async function uploadArtwork() {
+      const fileInput = document.getElementById('fileInput');
+      const status    = document.getElementById('uploadStatus');
+      const file      = fileInput.files[0];
+
+      if (!file) {
+        status.style.color = '#d4a84b';
+        status.textContent = '⚠ Please select an image file first.';
+        return;
+      }
+
+      try {
+        status.style.color = 'var(--mint)';
+        status.textContent = '⏳ Requesting secure upload link…';
+
+        const res = await fetch(`${API_BASE}/upload`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fileName: file.name, fileType: file.type })
+        });
+
+        const { uploadURL } = await res.json();
+        if (!uploadURL) throw new Error("Could not get upload URL");
+
+        status.textContent = '🚀 Sending image to AWS S3…';
+
+        const upload = await fetch(uploadURL, {
+          method: 'PUT',
+          body: file,
+          headers: { 'Content-Type': file.type }
+        });
+
+        if (upload.ok) {
+          status.style.color = '#8de4be';
+          status.textContent = '✓ Upload successful — AI analysis in progress. Refreshing in 10s…';
+          fileInput.value = '';
+          setTimeout(loadGallery, 10000);
+        } else {
+          throw new Error(`S3 rejected upload (${upload.status})`);
+        }
+
+      } catch (err) {
+        console.error("Upload error:", err);
+        status.style.color = '#e07a6e';
+        status.textContent = '✕ Error: ' + err.message;
+      }
+    }
+
+    // ── SHARE ──
+    async function shareArtwork(fileName, aiDescription, imageUrl) {
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: `Cloud Artist Platform: ${fileName}`,
+            text:  `Check out this artwork! AI Analysis: ${aiDescription}`,
+            url:   imageUrl
+          });
+        } else {
+          await navigator.clipboard.writeText(`Look at this art: ${imageUrl}`);
+          alert("Artwork link copied to clipboard!");
+        }
+      } catch (err) {
+        console.error("Share error:", err);
+      }
+    }
+
+    // ── INIT ──
+    window.onload = loadGallery;
+  </script>
+</body>
+</html>
