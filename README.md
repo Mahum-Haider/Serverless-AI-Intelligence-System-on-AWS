@@ -101,8 +101,7 @@ Data is served through a secure API Gateway, while the frontend is accelerated v
 ![JSON Response](Screenshots/json-response.png)
 *Fig 14: Validating the 'Request-Response' cycle. The structured JSON output is ready for frontend consumption.*
 
-![CloudFront Distribution](Screenshots/cloudfront1.png)
-![CloudFront Distribution](Screenshots/cloudfront2.png)
+![CloudFront Distribution](Screenshots/cloudfront.png)
 *Fig 15: CloudFront distribution providing global SSL/TLS encryption for enhanced performance and security.*
 
 ### Phase 6: DevOps & Containerized Auditing
