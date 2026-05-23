@@ -43,56 +43,56 @@ Operating with a 'Security First' mindset, the project emphasizes administrative
 ![IAM Security](Screenshots/iam-security.png)
 Fig 3: Adhering to the Principle of Least Privilege by operating through a scoped Admin IAM user.
 
-![AWS Budget Monitoring](screenshots/aws-budget.png)
+![AWS Budget Monitoring](Screenshots/aws-budget.png)
 Fig 4: Proactive cost monitoring to ensure infrastructure remains within the AWS Free Tier and budget limits.
 Phase 2: Infrastructure as Code (Terraform)
 Infrastructure is treated as a software product. All resources are defined in Terraform configuration files, allowing for automated provisioning and 'State' management.
 
-![Terraform Apply](screenshots/terraform-apply.png)
+![Terraform Apply](Screenshots/terraform-apply.png)
 Fig 5: Terminal output confirming the successful creation of all networking and serverless resources.
 
-![AWS CLI Validation](screenshots/aws-cli-validation.png)
+![AWS CLI Validation](Screenshots/aws-cli-validation.png)
 Fig 6: Verifying managed resources via the CLI to ensure state consistency across the cloud environment.
 Phase 3: Compute & Storage Foundation
 The application lives in a hardened network. Public-facing assets are isolated from private-tier data storage.
-![Bastion Host](screenshots/bastion-host.png)
+![Bastion Host](Screenshots/bastion-host.png)
 Fig 7: Terraform-provisioned Bastion Host used for secure SSH administration within the VPC.
 
-![Security Group Lockdown](screenshots/security-group.png)
+![Security Group Lockdown](Screenshots/security-group.png)
 Fig 8: Security proof showing the Bastion Host is locked down to a single administrative IP address.
 
-![S3 Storage](screenshots/s3-storage.png)
+![S3 Storage](Screenshots/s3-storage.png)
 Fig 9: Managed storage buckets for raw art uploads and static portfolio website hosting.
 Phase 4: Event-Driven AI Intelligence
 The 'brain' of the platform is a decoupled processing pipeline. An image upload triggers an asynchronous analysis workflow, extracting visual metadata without blocking the user interface.
 
-![S3 Lambda Trigger](screenshots/s3-lambda-trigger.png)
+![S3 Lambda Trigger](Screenshots/s3-lambda-trigger.png)
 Fig 10: Event notification setup invoking the 'ArtProcessor' Lambda function on S3:ObjectCreated events.
 
-![Lambda Logs](screenshots/lambda-logs.png)
+![Lambda Logs](Screenshots/lambda-logs.png)
 Fig 11: Real-time logs proving the AI successfully identified labels like 'Canvas', 'Abstract', and 'Modern Art'.
 
-![DynamoDB Records](screenshots/dynamodb-records.png)
+![DynamoDB Records](Screenshots/dynamodb-records.png)
 Fig 12: Data persistence validation, showing structured AI tags stored safely in the NoSQL database.
 Phase 5: RESTful API & CDN Delivery
 Data is served through a secure API Gateway, while the frontend is accelerated via a global Content Delivery Network.
 
-![API Gateway Architecture](screenshots/api-gateway.png)
+![API Gateway Architecture](Screenshots/api-gateway.png)
 Fig 13: Designed API contract for uploading artwork and retrieving AI-processed metadata.
-![JSON Response](screenshots/json-response.png)
+![JSON Response](Screenshots/json-response.png)
 Fig 14: Validating the 'Request-Response' cycle. The structured JSON output is ready for frontend consumption.
 
 
 
-![CloudFront Distribution](screenshots/cloudfront1.png)
-![CloudFront Distribution](screenshots/cloudfront2.png)
+![CloudFront Distribution](Screenshots/cloudfront1.png)
+![CloudFront Distribution](Screenshots/cloudfront2.png)
 Fig 15: Security and performance. CloudFront distribution providing global SSL/TLS encryption.
 Interactive UI & Sharing: Built a CloudFront-delivered frontend that displays the AI portfolio and uses the native Web Share API to let users instantly distribute their artwork and metadata.
 Phase 6: DevOps & Auditing (Docker)
 To ensure environment parity and eliminate local dependency conflicts, I developed a containerized administrative auditing tool. This tool automates the validation of S3 storage consistency against DynamoDB records.
 Technical Highlight: The Dockerized tool successfully identified a 1-record discrepancy between S3 and DynamoDB, demonstrating the system's 'self-healing' auditing capabilities.
 
-![Docker Audit Tool](screenshots/docker-audit-tool.png)
+![Docker Audit Tool](Screenshots/docker-audit-tool.png)
 Fig 16: Terminal output of the containerized tool running locally via injected environment variables.
 In your README, you could write:
 "During local testing, manual library management led to dependency errors. To ensure environment parity and eliminate the 'works on my machine' problem, I containerized the Admin Tool using Docker, automating the installation of all necessary Python dependencies (Boto3) within the image."
