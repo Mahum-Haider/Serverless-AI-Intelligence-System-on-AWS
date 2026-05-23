@@ -11,19 +11,19 @@ The Cloud Artist Platform follows a fully serverless, event-driven architecture 
 
 ### End-to-End Data Flow
 
-* **User Upload (Frontend)**
-* **↓**
-* **Amazon S3 (Image Storage)**
-* **↓ (S3 Event Trigger)**
-* **AWS Lambda (ArtProcessor Function)**
-* **↓**
-* **Amazon Rekognition (Image Analysis)**
-* **↓**
-* **Amazon DynamoDB (Metadata Storage)**
-* **↓**
-* **API Gateway (RESTful Access Layer)**
-* **↓**
-* **Frontend Dashboard (CloudFront + S3)**
+User Upload (Frontend)
+↓
+Amazon S3 (Image Storage)
+↓ (S3 Event Trigger)
+AWS Lambda (ArtProcessor Function)
+↓
+Amazon Rekognition (Image Analysis)
+↓
+Amazon DynamoDB (Metadata Storage)
+↓
+API Gateway (RESTful Access Layer)
+↓
+Frontend Dashboard (CloudFront + S3)
 ---
 
 ## System Dashboard & Interface
