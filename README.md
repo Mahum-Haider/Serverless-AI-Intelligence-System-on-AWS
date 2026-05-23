@@ -11,8 +11,6 @@ The Cloud Artist Platform follows a fully serverless, event-driven architecture 
 
 ### End-to-End Data Flow
 
-### End-to-End Data Flow
-
 * **User Upload (Frontend)**
 * **↓**
 * **Amazon S3 (Image Storage)**
