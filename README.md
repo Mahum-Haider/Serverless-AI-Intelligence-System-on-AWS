@@ -6,7 +6,7 @@ The Cloud Artist Platform is a high-performance, event-driven AI system designed
 
 ---
 
-## Architecture Diagram (High-Level Flow)
+## Architecture Diagram
 The Cloud Artist Platform follows a fully serverless, event-driven architecture designed for scalability, security, and low operational overhead.
 
 ### End-to-End Data Flow
