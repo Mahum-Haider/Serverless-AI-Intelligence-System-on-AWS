@@ -23,8 +23,8 @@ Frontend Dashboard (CloudFront + S3)
 
 --------------------------------------------------------------------------------------------------------------------
 
-![Frontend Dashboard Interface](screenshots/dashboard1.png)
-![Frontend Dashboard Interface](screenshots/dashboard2.png)
+![Frontend Dashboard Interface](Screenshots/dashboard1.png)
+![Frontend Dashboard Interface](Screenshots/dashboard2.png)
 Fig 1: The 'Cloud Artist Platform' live dashboard, demonstrating end-to-end integration of the AI pipeline.
 ---------------------------------------------------------------------------------------------------------------------
 System Architecture
@@ -35,12 +35,12 @@ Database: Amazon DynamoDB (Table: artwork_metadata) for low-latency NoSQL storag
 AI Layer: Amazon Rekognition for automated object detection and visual labeling.
 Networking: Custom VPC with public/private subnets and an EC2 Bastion Host for secure administration.
 
-![VPC Architecture](screenshots/architecture-diagram.png)
+![VPC Architecture](Screenshots/architecture-diagram.png)
 Fig 2: Visual mapping of the custom VPC, showcasing isolated subnets and secure routing logic.
 Phase 1: Security & Cost Governance
 Operating with a 'Security First' mindset, the project emphasizes administrative best practices and proactive cost management.
 
-![IAM Security](screenshots/iam-security.png)
+![IAM Security](Screenshots/iam-security.png)
 Fig 3: Adhering to the Principle of Least Privilege by operating through a scoped Admin IAM user.
 
 ![AWS Budget Monitoring](screenshots/aws-budget.png)
